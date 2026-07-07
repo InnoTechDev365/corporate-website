@@ -1,17 +1,3 @@
-51%
-
-
-
-
-
-Library
-Commands
-
-
-Packager files
-
-
-
 Nexus Consulting — B2B Corporate Website
 A production-ready corporate website template built for professional services and consulting firms. Clean, fast, and fully animated — designed to convert enterprise prospects into qualified leads.
 
