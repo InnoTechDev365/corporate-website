@@ -1,10 +1,7 @@
-# ──────────────────────────────────────────────────────────────────────────────
-# GitHub Pages — Nexus Consulting Corporate Website
+name: Deploy to GitHub Pages
+
 # Repo : https://github.com/InnoTechDev365/corporate-website
 # Pages: https://innotechdev365.github.io/corporate-website/
-# ──────────────────────────────────────────────────────────────────────────────
-
-name: Deploy → GitHub Pages
 
 on:
   push:
@@ -22,16 +19,34 @@ on:
       - "lib/**"
   workflow_dispatch:
 
-# Allow only one deployment at a time; cancel any in-progress run on new push
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
 
-# Minimal permissions — write only what GitHub Pages needs
 permissions:
   contents: read
   pages: write
   id-token: write
 
 jobs:
-  # ── Build ────────────────────────────────────────────────────────────────────
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
