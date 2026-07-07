@@ -1,0 +1,37 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# GitHub Pages — Nexus Consulting Corporate Website
+# Repo : https://github.com/InnoTechDev365/corporate-website
+# Pages: https://innotechdev365.github.io/corporate-website/
+# ──────────────────────────────────────────────────────────────────────────────
+
+name: Deploy → GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "artifacts/corporate-site/**"
+      - "lib/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/deploy.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "artifacts/corporate-site/**"
+      - "lib/**"
+  workflow_dispatch:
+
+# Allow only one deployment at a time; cancel any in-progress run on new push
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+# Minimal permissions — write only what GitHub Pages needs
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  # ── Build ────────────────────────────────────────────────────────────────────
